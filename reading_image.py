@@ -23,24 +23,24 @@ def read_image(path: str, opencv_color_flag: int) -> np.ndarray:
 
 def show_image(img: np.ndarray) -> None:
     """
-    
+    Function defined to output an image using matplotlib
+
     Args:
-        img:
+        img: np.array representing a previously loaded image
 
     Returns:
-
+        None
     """
-    plt.figure(figsize = (20, 17))
-    plt.imshow(img)
+    plt.figure(figsize = (15, 10))
+    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))  # By default cv2 output image in BGR channels.
     plt.show()
 
 
 test     = read_image(path = "Data/20200827_084342.jpg", opencv_color_flag = -1)
-test     = cv2.cvtColor(test, cv2.COLOR_BGR2RGB)
-# resized = cv2.resize(src = test, dsize = (150, 150))
-
 pipeline = A.Compose([
-    A.Resize(height = 256, width = 256)
+    A.Resize(height = 256, width = 256),
+    A.HorizontalFlip(p = 0.5),
+    A.VerticalFlip(p = 0.5)
 ])
 
 resized = pipeline(image = test)
