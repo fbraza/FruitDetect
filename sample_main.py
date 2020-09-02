@@ -2,15 +2,15 @@ import albumentations as A
 import cv2
 import numpy as np
 import LabelFileTreatment as lbl
-#import reading_image
+import reading_image as ri
 
 # Load Image and transform it from BGR to RGB
-#image = read_image("/samples/TwoTomatoesImage.jpg",1)
-image = cv2.imread("samples/TwoTomatoesImage.jpg")
-image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+image = ri.read_image("samples/TwoTomatoesImage.jpg",1)
+#image = cv2.imread("samples/TwoTomatoesImage.jpg")
+#image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-#Print image to check
-#show_image(image)
+# Print image to check
+ri.show_image(image)
 
 # setup a simple data augmentation : horizontal flip
 transform = A.Compose([
@@ -38,10 +38,10 @@ transformed_class_labels = transformed['class_labels']
 print(transformed_bboxes,transformed_class_labels)
 
 # check image after transformation
-#show_image(transformed_image)
+ri.show_image(transformed_image)
 
 # Save new image to disk
-transformed_image = cv2.cvtColor(transformed_image, cv2.COLOR_RGB2BGR)
+#transformed_image = cv2.cvtColor(transformed_image, cv2.COLOR_RGB2BGR)
 cv2.imwrite("samples/TwoTomatoesImage_flip.jpg",transformed_image)
 # Save transformed labels to disk
 labelFile.putBoxObjectToFile(transformed_bboxes,transformed_class_labels)

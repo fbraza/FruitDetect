@@ -35,13 +35,13 @@ def show_image(img: np.ndarray) -> None:
     plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))  # By default cv2 output image in BGR channels.
     plt.show()
 
-
-test     = read_image(path = "Data/20200827_084342.jpg", opencv_color_flag = -1)
-pipeline = A.Compose([
+if __name__ == '__main__':
+    test     = read_image(path = "Data/20200827_084342.jpg", opencv_color_flag = -1)
+    pipeline = A.Compose([
     A.Resize(height = 256, width = 256),
     A.HorizontalFlip(p = 0.5),
     A.VerticalFlip(p = 0.5)
-])
+    ])
 
-resized = pipeline(image = test)
-show_image(resized['image'])
+    resized = pipeline(image = test)
+    show_image(resized['image'])
