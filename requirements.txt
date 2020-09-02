@@ -10,11 +10,11 @@ mkl-fft==1.1.0
 mkl-random==1.1.1
 mkl-service==2.3.0
 networkx==2.5
-numpy @ file:///tmp/build/80754af9/numpy_and_numpy_base_1596233721170/work
+numpy
 opencv-contrib-python==4.4.0.42
 opencv-python==4.4.0.42
 opencv-python-headless==4.4.0.42
-pandas @ file:///tmp/build/80754af9/pandas_1598371468004/work
+pandas
 Pillow==7.2.0
 pyparsing==2.4.7
 python-dateutil==2.8.1
