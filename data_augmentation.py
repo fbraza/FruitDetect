@@ -67,10 +67,11 @@ def get_labels_and_coordinates(path: str) -> tuple:
     Returns:
         tuple
     """
-    data = np.loadtxt(path)
-    labels, coordinates = [], []
+    data, labels, coordinates = np.loadtxt(path), [], []
+
     if len(data.shape) == 1:
         data = data.reshape(1, -1)
+
     for row in data:
         labels.append(row[0])
         coordinates.append(row[1:])
@@ -78,49 +79,55 @@ def get_labels_and_coordinates(path: str) -> tuple:
     return (labels, coordinates)
 
 
-def augment_and_save(path: str) -> None:
+def augment_and_save(path_to_get_data: str, path_to_save_data: str) -> None:
     """
     Function defined to apply an image / rounding boxes transformation pipeline
     and save the corresponding files.
 
     Args:
-        path: string of file name
+        path_to_get_data: string of the folder path where untouched data is
+        path_to_save_data: string of the folder where to save augmented data
 
     Returns:
         tuple
     """
     # load files names and define a pre-established pipeline
-    images_files_names, yolo_files_names = get_images_and_box_files_names(path)
+    images_files_names, yolo_files_names = get_images_and_box_files_names(path_to_get_data)
     augmentation_pipeline = A.Compose(
         [A.Resize(height = 128, width = 128),
-         A.Flip(p = 0.5),
-         A.Normalize()],
+         A.Flip(p = 0.5)],
          bbox_params = A.BboxParams(format = 'yolo', label_fields = ['class_labels'])
     )
 
     # iterate through names
     for idx, name in enumerate(images_files_names):
         # Read image
-        image_path = path + '/' + name
+        image_path = path_to_get_data + '/' + name
         image = cv2.imread(image_path)
+
         # Extract labels and coordinates from yolo txt file
-        yolo_file_path = path + '/' + yolo_files_names[idx]
+        yolo_file_path = path_to_get_data + '/' + yolo_files_names[idx]
         labels, coordinates = get_labels_and_coordinates(yolo_file_path)
+
         for i in tqdm(range(10)):
             name = name.replace(".jpg", "")
             new_image_name, new_yolos_name = f"{name}_{i:02}.jpg", f"{name}_{i:02}.txt"
             aug_data = augmentation_pipeline(image = image,
-                                               bboxes = coordinates,
-                                               class_labels = labels)
+                                             bboxes = coordinates,
+                                             class_labels = labels)
             new_image, new_coordinates, labels = aug_data['image'], aug_data['bboxes'], aug_data['class_labels']
-            print(type(new_coordinates))
-            break
-            # write image on disk
-            # cv2.imwrite("test_augmented_images/{new_image_name}", new_image)
-            # # reform the array with labels and coordinates
-            # new_bbox_yolo = np.insert()
-            # np.savetxt("test_augmented_images/{new_yolos_name}")
+            cv2.imwrite(filename = f"{path_to_save_data}/{new_image_name}",
+                        img = new_image)
+            new_coordinates = np.array(new_coordinates)
+            new_yolo_bbox = np.insert(arr = new_coordinates,
+                                      obj = 0,
+                                      values = labels,
+                                      axis = 1)
+            np.savetxt(fname = f"{path_to_save_data}/{new_yolos_name}",
+                       X = new_yolo_bbox,
+                       fmt = [["%i"], ["%f"], ["%f"], ["%f"], ["%f"]])
+        # You can comment the break to process all 40 images.
         break
 
 
-augment_and_save("test_40_photos/obj_train_data")
+augment_and_save("test_40_photos/obj_train_data", "test_augmented_images")
