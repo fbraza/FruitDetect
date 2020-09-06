@@ -127,7 +127,6 @@ def augment_and_save(path_to_get_data: str, path_to_save_data: str, number_of_tr
     augmentation_pipeline    = A.Compose([A.Resize(256, 256), A.Flip(0.5)], A.BboxParams('yolo',['class_labels']))
 
     for idx, name in enumerate(images_names):
-        # Read image
         image_path          = path_to_get_data + '/' + name
         image               = cv2.imread(image_path)
         yolo_file_path      = path_to_get_data + '/' + yolo_names[idx]
@@ -137,8 +136,7 @@ def augment_and_save(path_to_get_data: str, path_to_save_data: str, number_of_tr
             new_image_name, new_yolos_name = set_new_files_names(name, i, "jpg", "txt")
 
             try:
-                new_image, new_coordinates, labels = get_data_from_pipeline(augmentation_pipeline, image,
-                                                                            coordinates, labels)
+                new_image, new_coordinates, labels = get_data_from_pipeline(augmentation_pipeline, image, coordinates, labels)
             except ValueError as e:
                 print("**** Error Message ****\n")
                 print(f"{e}\n")
