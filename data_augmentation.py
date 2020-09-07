@@ -2,7 +2,6 @@ import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
 import albumentations as A
 from tqdm import tqdm
 from typing import Tuple, List
@@ -107,9 +106,9 @@ def save_image_bbox_data(
         None
     """
     cv2.imwrite(f"{path_to_save_data}/{image_name}", image)
-    new_coordinates, new_yolo_bbox = np.array(coordinates), np.insert(new_coordinates, 0, labels, 1)
-    np.savetxt(f"{path_to_save_data}/{yolo_name}", new_yolo_bbox, [["%i"], ["%f"], ["%f"], ["%f"], ["%f"]])
-
+    new_coordinates = np.array(coordinates)
+    new_yolo_bbox = np.insert(new_coordinates, 0, labels, 1)
+    np.savetxt(f"{path_to_save_data}/{yolo_name}", new_yolo_bbox, ["%i", "%f", "%f", "%f", "%f"])
 
 def augment_and_save(path_to_get_data: str, path_to_save_data: str, number_of_tranformation: int) -> None:
     """
@@ -148,4 +147,4 @@ def augment_and_save(path_to_get_data: str, path_to_save_data: str, number_of_tr
 
 
 # For test uncomment
-# augment_and_save("test_40_photos/obj_train_data", "test_augmented_images", 1)
+augment_and_save("test_40_photos/obj_train_data", "test_augmented_images", 1)
