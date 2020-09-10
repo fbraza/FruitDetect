@@ -1,5 +1,5 @@
-train: ..DSTI_Python_Labs/train/images
-val: ..DSTI_Python_Labs/valid/images
+train: ..DSTI_Python_Labs/test_augmented_images/train/images
+val: ..DSTI_Python_Labs/test_augmented_images/valid/images
 
 nc: 8
 names: ['Tomato','Tomato (group)','Apple','Apple (group)','Banana','Banana (group)','Mango','Mango (group)']
