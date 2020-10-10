@@ -2,15 +2,16 @@ import cv2
 import numpy as np
 
 
-PATH_CONFIG = "../model_training/yolov4-custom.cfg"
-PATH_WEIGHTS = "../model_training/yolov4-obj_best.weights"
-PATH_CLASSES = "../yolo_data/obj.names"
+PATH_CONFIG = "../../data/model_training/yolov4-custom.cfg"
+PATH_WEIGHTS = "../../data/model_training/yolov4-obj_best.weights"
+PATH_CLASSES = "../../data/yolo_data/obj.names"
 
 
 class YoloPredictionModel:
     def __init__(self, path_config, path_weigths, path_classes):
         """
-        This class encapsulates related to the model configuration
+        Instantiate an object which encapsulates all data and API necessary to
+        run the predicitions
 
         Parameters:
         -----------
@@ -20,7 +21,10 @@ class YoloPredictionModel:
 
         Attributes:
         -----------
-
+        - classes: list[str], list containing names of the classes
+        - network: dnn module that provides yolo API with OpenCV backend
+        - output_layers: list[str], list containing the names of the 3 output
+          layers
         """
         self.classes = self.class_names(path_classes)
         self.network = cv2.dnn.readNetFromDarknet(path_config, path_weigths)
@@ -170,7 +174,7 @@ class YoloPredictionModel:
                     class_index.append(_index)
                     class_proba.append(_proba)
         # When all predictions are done
-        for i, proba in enumerate(class_proba):
+        for i, _ in enumerate(class_proba):
             message = "I see... {}!".format(self.classes[class_index[i]])
             cv2.putText(img=image,
                         text=message,
