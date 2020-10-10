@@ -75,10 +75,12 @@ def generate_yolo_inputs(source_data, split_factor=0.8):
     --------
     - None
     """
-    spliter = DataSplitor(source_data, "yolo_data/obj", "yolo_data/test")
+    spliter = DataSplitor(source_data,
+                          "../data/yolo_data/obj",
+                          "../data/yolo_data/test")
     spliter.set_train_test(split_factor)
-    train = open("yolo_data/train.txt", "w+")
-    test = open("yolo_data/test.txt", "w+")
+    train = open("../data/yolo_data/train.txt", "w+")
+    test = open("../data/yolo_data/test.txt", "w+")
     # Iterate through the file names for train
     for idx, name in enumerate(spliter.train):
         write_train_txt(train, name, len(spliter.train), idx)
@@ -109,9 +111,9 @@ def write_train_txt(file_to_write, file_name, size_file_list, index):
     """
     img_name = "{}.jpg".format(file_name)
     if index == size_file_list - 1:
-        file_to_write.write("data/obj/{}".format(img_name))
+        file_to_write.write("../data/yolo_data/obj/{}".format(img_name))
     else:
-        file_to_write.write("data/obj/{}\n".format(img_name))
+        file_to_write.write("../data/yolo_data/obj/{}\n".format(img_name))
 
 
 def write_test_txt(file_to_write, file_name, size_file_list, index):
@@ -134,9 +136,9 @@ def write_test_txt(file_to_write, file_name, size_file_list, index):
     """
     img_name = "{}.jpg".format(file_name)
     if index == size_file_list - 1:
-        file_to_write.write("data/test/{}".format(img_name))
+        file_to_write.write("../data/yolo_data/test/{}".format(img_name))
     else:
-        file_to_write.write("data/test/{}\n".format(img_name))
+        file_to_write.write("../data/yolo_data/test/{}\n".format(img_name))
 
 
 def copy_data(file_name, source, destination):
@@ -159,3 +161,4 @@ def copy_data(file_name, source, destination):
     txt_to_move = "{}.txt".format(file_name)
     shutil.copy("{}/{}".format(source, img_to_move), destination)
     shutil.copy("{}/{}".format(source, txt_to_move), destination)
+
