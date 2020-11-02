@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 
 
-PATH_CONFIG = "../../data/model_training/yolov4-custom.cfg"
-PATH_WEIGHTS = "../../data/model_training/yolov4-obj_best.weights"
+PATH_CONFIG = "../../data/model_training/yolov4-custom-02.cfg"
+PATH_WEIGHTS = "../../data/model_training/weights/yolov4-custom-02_last.weights"
 PATH_CLASSES = "../../data/yolo_data/obj.names"
 
 
@@ -148,7 +148,7 @@ class YoloPredictionModel:
         """
         return self.network.forward(self.output_layers)
 
-    def predict(self, image, yolo_output_objects, threshold=0.5):
+    def predict_and_identify(self, image, yolo_output_objects, threshold=0.7):
         """
         Method defined to get and output predictions on video frames.
         A first pair of nested loop will get the index of the highest
@@ -164,25 +164,36 @@ class YoloPredictionModel:
         _forward() method for a more detailed description
         - threshold: float, 0.5 by default
         """
-        class_index, class_proba = [], []
+        img_heigth, img_width = image.shape[:2]
+        class_index, class_proba, boxes = [], [], []
         for output_object in yolo_output_objects:
             for predictions in output_object:
                 probabilities = predictions[5:]
                 _index = np.argmax(probabilities)
                 _proba = float(probabilities[_index])
                 if _proba >= threshold:
+                    # Normalize coordinates values to image size
+                    w = int(predictions[2] * img_width)
+                    h = int(predictions[3] * img_heigth)
+                    x = int(predictions[0] * img_width)
+                    y = int(predictions[1] * img_heigth)
+                    point_0 = int(x - w // 2), int(y - h // 2)
+                    boxes.append([*point_0, int(w), int(h)])
                     class_index.append(_index)
                     class_proba.append(_proba)
         # When all predictions are done
-        for i, _ in enumerate(class_proba):
-            message = "I see... {}!".format(self.classes[class_index[i]])
-            cv2.putText(img=image,
-                        text=message,
-                        org=(50, 50),
-                        fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-                        fontScale=1,
-                        color=(255, 0, 255),
-                        thickness=2)
+        indices = cv2.dnn.NMSBoxes(boxes, class_proba, threshold, threshold -
+                                   0.3)
+        # Use coordinates values to draw box and output message
+        if len(indices) > 0:
+            for i in indices.flatten():
+                (x, y) = (boxes[i][0], boxes[i][1])
+                (w, h) = (boxes[i][2], boxes[i][3])
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 255), 2)
+                message = "{}: {:.4f}".format(self.classes[class_index[i]],
+                                                           class_proba[i])
+                cv2.putText(image, message, (x, y - 5),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
 
 
 def generate_blob(image, scale=1/255, size=(416, 416), mean=0, crop=False):
@@ -206,6 +217,6 @@ if __name__ == "__main__":
         layers = yolo.get_output_layers_names()
         output = yolo._forward()
         # Predictions
-        yolo.predict(frame, output)
+        yolo.predict_and_identify(frame, output)
         cv2.imshow("test", frame)
         cv2.waitKey(1)
