@@ -136,7 +136,7 @@ def augment_and_save(path_to_get_data, path_to_save_data,
     """
     images_names, yolo_names = get_images_and_box_files_names(path_to_get_data)
     augmentation_pipeline = A.Compose(
-            [A.Resize(256, 256), A.Flip(0.35), A.Blur(7, False, 0.35)],
+            [A.Resize(416, 416), A.Flip(0.35)],
             A.BboxParams('yolo', ['class_labels'])
             )
     # Iterate through each image

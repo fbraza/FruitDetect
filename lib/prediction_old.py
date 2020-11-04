@@ -1,3 +1,4 @@
+import os
 import cv2
 import numpy as np
 
@@ -205,12 +206,13 @@ if __name__ == "__main__":
                                PATH_WEIGHTS,
                                PATH_CLASSES).set_backend_and_device()
     # instantiate video capture object
-    capture = cv2.VideoCapture(0)
-    while True:
-        # capture frames
-        success, frame = capture.read()
-        # Test for one image
-        # frame = cv2.imread("tomate2.jpg")
+    # capture = cv2.VideoCapture(0)
+    # while True:
+    # capture frames
+    # success, frame = capture.read()
+    # Test for one image
+    for image in os.listdir("tests"):
+        frame = cv2.imread("tests/{}".format(image))
         # tranform frames into blobs
         blob_input = generate_blob(frame)
         # blobs as yolo inputs
@@ -220,5 +222,6 @@ if __name__ == "__main__":
         output = yolo._forward()
         # Predictions
         yolo.predict_and_identify(frame, output)
-        cv2.imshow("test", frame)
-        cv2.waitKey(1)
+        # cv2.imshow("test", frame)
+        cv2.imwrite("result/{}".format(image), frame)
+        # cv2.waitKey(0)
