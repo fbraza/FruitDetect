@@ -63,24 +63,10 @@ but at the wrong location meaning that the bounding box is completey off. Surely
 positive. That is where the IoU comes handy and allows to determines whether the bounding box is located at the right
 location: 
 
-<img src="https://render.githubusercontent.com/render/math?math=IoU = {\sum_{}^{all objects}Area of Intersection} \over {\sum_{}^{all objects}Area of Union} > 0.5">
+<img src="https://render.githubusercontent.com/render/math?math=IoU = {\sum_{ }^{all objects}{Area of Intersection}} \over {\sum_{ }^{all objects}{Area of Union}} > 0.5">
 
 Usually a threshold of 0.5 is set and everything above is considered as good prediction. As such the
 corresponding mAP is noted mAP@0.5. 
-
-
-thatis based on the All object detectors take an image in for input and compress features down through a 
-convolutional neural network backbone. In image classification, these backbones are the end of the network and prediction
-can be made off of them. In object detection, multiple bounding boxes need to be drawn around images along with classification,
-so the feature layers of the convolutional backbone need to be mixed and held up in light of one another. The combination of 
-backbone feature layers happens in the neck.
-
-It is also useful to split object detectors into two categories: one-stage detectors and two stage detectors. Detection
-happens in the head. Two-stage detectors decouple the task of object localization and classification for each bounding box.
-One-stage detectors make the predictions for object localization and classification at the same time. YOLO is a one-stage
-detector, hence, You Only Look Once.
-
-
 
 *Thumb detection with TensorFlow* -
 
