@@ -60,7 +60,7 @@ To evaluate the model we relied on two metrics: the **mean average precision** (
 
 The architecture and design of the app has been thought with the objective to appear autonomous and simple to use. it is supposed to lead  the user in the right direction with minimal interaction calls (Figure 4). The user needs to put the fruit under the camera, read the proposition from the machine and validate or not the prediction by raising his thumb up or down respectively. 
 
-<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/app_workflow.png" alt="Figure 4: Application workflow" style="zoom:150%;" />
+![workflow](https://github.com/fbraza/DSTI_Python_Labs/blob/master/assets/app_workflow.png)
 
 *Figure 4: Application workflow*
 
