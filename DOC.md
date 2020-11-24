@@ -57,15 +57,19 @@ resolution, anchor boxes, objectness score to bounding box prediction and a dete
 the detection of smaller objects. From the user perspective YOLO proved to be very easy to use and setup. Indeed because
 of the time restriction when using the Google Colab free tier we decided to install locally all necessary drivers (NVIDIA,
 CUDA) and compile locally the [Darknet architecture](https://github.com/AlexeyAB/darknet). This has been done on a linux computer running Ubuntu 20.04, with 32GB of RAM, NVIDIA GeForce GTX1060 graphic card with 6GB memory and an intel I7 processor.
-To evaluate the model we relied on two metrics: the mean average precision (mAP) and the intersection over union (IoU).
-The average precision (AP) is a way to get a fair idea of the model performance. It consists of computing the maximum
+
+To evaluate the model we relied on two metrics: the **mean average precision** (mAP) and the **intersection over union** (IoU).
+The **average precision** (AP) is a way to get a fair idea of the model performance. It consists of computing the maximum
 precision we can get at different threshold of recall. Then we calculate the mean of these maximum precision. Now as we
 have more classes we need to get the AP for each class and then compute the mean again. This why this metric is named
-*mean average* precision. Object detection brings an additional complexity: what if the model detects the correct class
+**mean average precision**. Object detection brings an additional complexity: what if the model detects the correct class
 but at the wrong location meaning that the bounding box is completey off. Surely this prediction should not be counted as
 positive. That is where the IoU comes handy and allows to determines whether the bounding box is located at the right
 location.Usually a threshold of 0.5 is set and everything above is considered as good prediction. As such the corresponding
-mAP is noted **mAP@0.5**.
+mAP is noted **mAP@0.5**. The principle of the IoU is depicted in Figure 3.
+
+#### Thumb detection with TensorFlow
+
 
 ## Experiment and results
 
