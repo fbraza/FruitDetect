@@ -63,7 +63,7 @@ but at the wrong location meaning that the bounding box is completey off. Surely
 positive. That is where the IoU comes handy and allows to determines whether the bounding box is located at the right
 location: 
 
-$$ IoU = {\sum_{}^{all objects}Area of Intersection} \over {\sum_{}^{all objects}Area of Union} > 0.5 $$
+<img src="https://render.githubusercontent.com/render/math?math=IoU = {\sum_{}^{all objects}Area of Intersection} \over {\sum_{}^{all objects}Area of Union} > 0.5">
 
 Usually a threshold of 0.5 is set and everything above is considered as good prediction. As such the
 corresponding mAP is noted mAP@0.5. 
