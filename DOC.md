@@ -30,7 +30,13 @@ An additional class for an empty camera field has been added which puts the tota
 are provided in Figure 2. The Computer Vision and Annotation Tool (CVAT) has been used to label the images and export
 the bounding boxes data in YOLO format.
 
-*Data augmentation* -
+*Data augmentation* - We used traditional tranformations that combined affine image transformations and color modification.
+These tranformations have been performed using the [Albumentations](https://github.com/albumentations-team/albumentations) python library. This library leverages `numpy`, `opencv` and `imgaug` python lirabries through an easy to use API.
+```python
+albumentation_pipeline_object.Compose([A.Resize(256, 256), A.Flip(0.35), A.Blur(7, False, 0.35)],
+                                       A.BboxParams('yolo', ['class_labels']))
+```
+For each image 
 *Fruit detection with YOLOv4* -
 *Thumb detection with TensorFlow* -
 
