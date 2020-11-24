@@ -30,14 +30,58 @@ An additional class for an empty camera field has been added which puts the tota
 are provided in Figure 2. The Computer Vision and Annotation Tool (CVAT) has been used to label the images and export
 the bounding boxes data in YOLO format.
 
-*Data augmentation* - We used traditional tranformations that combined affine image transformations and color modification.
-These tranformations have been performed using the [Albumentations](https://github.com/albumentations-team/albumentations) python library. This library leverages `numpy`, `opencv` and `imgaug` python lirabries through an easy to use API.
+*Data augmentation* - We used traditional tranformations that combined affine image transformations and color modifications.
+These tranformations have been performed using the [Albumentations](https://github.com/albumentations-team/albumentations) python library. This library leverages `numpy`, `opencv` and `imgaug` python lirabries through an easy to use API. The sequence of transformations can be seen below in the code snippet.
 ```python
-albumentation_pipeline_object.Compose([A.Resize(256, 256), A.Flip(0.35), A.Blur(7, False, 0.35)],
-                                       A.BboxParams('yolo', ['class_labels']))
+A.Compose(
+    [A.Resize(416, 416),
+     A.Equalize(by_channels=True),
+     A.RGBShiftr_shift_limit=(-30, 30), g_shift_limit=(-30, 30), b_shift_limit=(-30, 30), p=0.25),
+     A.HorizontalFlip(p=0.35),
+     A.VerticalFlip(p=0.35),
+     A.ShiftScaleRotate(border_mode=cv2.BORDER_REPLICATE, p=0.35),
+     A.RandomSnow(brightness_coeff=2.0, p=0.2)],
+     A.BboxParams('yolo', ['class_labels'])
+    )
 ```
-For each image 
-*Fruit detection with YOLOv4* -
+Each image went through 150 distinct rounds of transformations which brings the total number of images at 50700. The
+full code for data augmentation can be seen [here]() **PUT THE LINK**
+
+*Fruit detection with YOLOv4* - For fruit detection we used the YOLOv4 architecture whom backbone network is based on the
+CSPDarknet53 ResNet. YOLO is a one-stage detector meaning that predictions for object localization and classification are done
+at the same time. Additionaly and through its previous iterations the model significantly improves by adding BatchNorm, higher
+resolution, anchor boxes, objectness score to bounding box prediction and a detection in three granular step to improve
+the detection of smaller objects. From the user perspective YOLO proved to be very easy to use and setup. Indeed because
+of the time restriction when using the Google Colab free tier we decided to install locally all necessary drivers (NVIDIA,
+CUDA) and compile locally the [Darknet architecture](https://github.com/AlexeyAB/darknet). This has been done on a linux computer running Ubuntu 20.04, with 32GB of RAM, NVIDIA GeForce GTX1060 graphic card with 6GB memory and an intel I7 processor.
+To evaluate the model we relied on two metrics: the mean average precision (mAP) and the intersection over union (IoU).
+The average precision (AP) is a way to get a fair idea of the model performance. It consists of computing the maximum
+precision we can get at different threshold of recall. Then we calculate the mean of these maximum precision. Now as we
+have more classes we need to get the AP for each class and then compute the mean again. This why this metric is named
+*mean average* precision. Object detection brings an additional complexity: what if the model detects the correct class
+but at the wrong location meaning that the bounding box is completey off. Surely this prediction should be counted as
+positive. That is where the IoU comes handy and allows to determines whether the bounding box is located at the right
+location: 
+
+$$ IoU = {\sum_{}^{all objects}Area of Intersection} \over {\sum_{}^{all objects}Area of Union} > 0.5 $$
+
+Usually a threshold of 0.5 is set and everything above is considered as good prediction. As such the
+corresponding mAP is noted mAP@0.5. 
+
+
+thatis based on the All object detectors take an image in for input and compress features down through a 
+convolutional neural network backbone. In image classification, these backbones are the end of the network and prediction
+can be made off of them. In object detection, multiple bounding boxes need to be drawn around images along with classification,
+so the feature layers of the convolutional backbone need to be mixed and held up in light of one another. The combination of 
+backbone feature layers happens in the neck.
+
+It is also useful to split object detectors into two categories: one-stage detectors and two stage detectors. Detection
+happens in the head. Two-stage detectors decouple the task of object localization and classification for each bounding box.
+One-stage detectors make the predictions for object localization and classification at the same time. YOLO is a one-stage
+detector, hence, You Only Look Once.
+
+
+
 *Thumb detection with TensorFlow* -
 
 ## Experiment and results
