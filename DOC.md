@@ -23,14 +23,16 @@ client validate the predictions.
 
 ## Methodology
 
-*Dataset* - In this project we aim at the identification of 4 different fruits: tomatoes, bananas, apples and mangos.
+#### Dataset
+In this project we aim at the identification of 4 different fruits: tomatoes, bananas, apples and mangos.
 From these we defined 4 different classes by fruits: single fruit, group of fruit, fruit in bag, group of fruit in bag.
 An additional class for an empty camera field has been added which puts the total number of classes to 17. A data set of
 **[number]** images per class has been generated using the same camera as for pediction. Example images for each class 
 are provided in Figure 2. The Computer Vision and Annotation Tool (CVAT) has been used to label the images and export
 the bounding boxes data in YOLO format.
 
-*Data augmentation* - We used traditional tranformations that combined affine image transformations and color modifications.
+#### Data augmentation
+We used traditional tranformations that combined affine image transformations and color modifications.
 These tranformations have been performed using the [Albumentations](https://github.com/albumentations-team/albumentations) python library. This library leverages `numpy`, `opencv` and `imgaug` python lirabries through an easy to use API. The sequence of transformations can be seen below in the code snippet.
 ```python
 A.Compose(
@@ -47,8 +49,9 @@ A.Compose(
 Each image went through 150 distinct rounds of transformations which brings the total number of images at 50700. The
 full code for data augmentation can be seen [here]() **PUT THE LINK**
 
-*Fruit detection with YOLOv4* - For fruit detection we used the YOLOv4 architecture whom backbone network is based on the
-CSPDarknet53 ResNet. YOLO is a one-stage detector meaning that predictions for object localization and classification are done
+#### Fruit detection with YOLOv4
+For fruit detection we used the YOLOv4 architecture whom backbone network is based on the CSPDarknet53 ResNet.
+YOLO is a one-stage detector meaning that predictions for object localization and classification are done
 at the same time. Additionaly and through its previous iterations the model significantly improves by adding BatchNorm, higher
 resolution, anchor boxes, objectness score to bounding box prediction and a detection in three granular step to improve
 the detection of smaller objects. From the user perspective YOLO proved to be very easy to use and setup. Indeed because
@@ -59,16 +62,10 @@ The average precision (AP) is a way to get a fair idea of the model performance.
 precision we can get at different threshold of recall. Then we calculate the mean of these maximum precision. Now as we
 have more classes we need to get the AP for each class and then compute the mean again. This why this metric is named
 *mean average* precision. Object detection brings an additional complexity: what if the model detects the correct class
-but at the wrong location meaning that the bounding box is completey off. Surely this prediction should be counted as
+but at the wrong location meaning that the bounding box is completey off. Surely this prediction should not be counted as
 positive. That is where the IoU comes handy and allows to determines whether the bounding box is located at the right
-location: 
-
-<img src="https://render.githubusercontent.com/render/math?math=IoU = {\sum_\text{all objects} \text{Area of Intersection}} \over {\sum_\text{all objects} \text{Area of Union}} > 0.5">
-
-Usually a threshold of 0.5 is set and everything above is considered as good prediction. As such the
-corresponding mAP is noted mAP@0.5. 
-
-*Thumb detection with TensorFlow* -
+location.Usually a threshold of 0.5 is set and everything above is considered as good prediction. As such the corresponding
+mAP is noted **mAP@0.5**.
 
 ## Experiment and results
 
