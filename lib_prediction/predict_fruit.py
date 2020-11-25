@@ -2,9 +2,9 @@ import cv2
 import numpy as np
 
 
-PATH_CONFIG = "../../data/model_training/yolov4-custom-02.cfg"
-PATH_WEIGHTS = "../../data/model_training/weights/yolov4-custom-02_5000.weights"
-PATH_CLASSES = "../../data/yolo_data/obj.names"
+PATH_CONFIG = "yolo_config/yolov4-custom-dsti.cfg"
+PATH_WEIGHTS = "yolo_config/weights/yolov4-custom-dsti_final.weights"
+PATH_CLASSES = "yolo_config/obj.names"
 
 
 class YoloPredictionModel:
@@ -12,13 +12,11 @@ class YoloPredictionModel:
         """
         Instantiate an object which encapsulates all data and API necessary to
         run the predicitions
-
         Parameters:
         -----------
         - configs: str, path to the .cfg file containing model configuration
         - weights: str, path to the .weights generated after training
         - classes: list, list of string containing class names
-
         Attributes:
         -----------
         - classes: list[str], list containing names of the classes
@@ -33,11 +31,9 @@ class YoloPredictionModel:
     def class_names(self, path):
         """
         Method defined to generate a list of class names' strings
-
         Parameters:
         -----------
         - path: str, path to the obj.names file
-
         Return:
         -------
         - None
@@ -52,11 +48,9 @@ class YoloPredictionModel:
         In our case we limit the backend choice to OpenCV and the
         device choices to the use of CPU or CUDA. We leverage the
         dnn module from the cv2 library for that.
-
         Parameters:
         -----------
         - device: str, choose between CPU or GPU. CPU by default
-
         Return:
         -------
         - self
@@ -73,11 +67,9 @@ class YoloPredictionModel:
     def ingest_input(self, blob):
         """
         Setter method defined to send input to our yolo model.
-
         Parameters:
         -----------
         - blob: 4D numpy array object (images, channels, width, height)
-
         Return:
         -------
         - None
@@ -88,7 +80,6 @@ class YoloPredictionModel:
         """
         Getter method to that return as a list the name of all layers
         present in our yolo neural network.
-
         Return:
         -------
         - list: list of string of the layers' names
@@ -99,7 +90,6 @@ class YoloPredictionModel:
         """
         Getter method to get output layers position number. The yolo model has
         three output layers.
-
         Return:
         -------
         - list[list[int]]: Layer position. Be careful the fisrt layer is at
@@ -111,7 +101,6 @@ class YoloPredictionModel:
         """
         Getter method to extract the output layers based on their position
         inside the neural network architecture
-
         Return:
         -------
         - list: return the names of the three output layers of yolo
@@ -130,11 +119,9 @@ class YoloPredictionModel:
         - The fifth column of each array correspond the box confidence
         - The rest of the columns of each array correspond to each class with
           associated probability
-
         Return:
         -------
         - list[floats]
-
         Examples:
         ---------
         In our model we are suppose to get the following:
@@ -156,7 +143,6 @@ class YoloPredictionModel:
         is superior to the threshold we save the index.
         A second loop iterate through an enumerate iterable and get the
         corresponding class in order to output it in the video frame.
-
         Parameters:
         -----------
         - image: numpy array representation of the image
@@ -191,9 +177,10 @@ class YoloPredictionModel:
                 (w, h) = (boxes[i][2], boxes[i][3])
                 cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 255), 2)
                 message = "{}: {:.4f}".format(self.classes[class_index[i]],
-                                                           class_proba[i])
+                                              class_proba[i])
                 cv2.putText(image, message, (x, y - 5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
+        return(self.classes, class_index, class_proba)
 
 
 def generate_blob(image, scale=1/255, size=(416, 416), mean=0, crop=False):
@@ -209,14 +196,12 @@ if __name__ == "__main__":
     while True:
         # capture frames
         success, frame = capture.read()
-        # Test for one image
-        # frame = cv2.imread("tomate2.jpg")
         # tranform frames into blobs
         blob_input = generate_blob(frame)
         # blobs as yolo inputs
         yolo.ingest_input(blob_input)
         # Get output obects
-        layers = yolo.get_output_layers_names()
+        yolo.get_output_layers_names()
         output = yolo._forward()
         # Predictions
         yolo.predict_and_identify(frame, output)

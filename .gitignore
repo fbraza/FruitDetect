@@ -8,6 +8,7 @@ __pycache__/
 darknet/
 
 # Distribution / packaging
+config/
 .Python
 build/
 develop-eggs/
