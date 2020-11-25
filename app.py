@@ -3,8 +3,8 @@ from lib_prediction.camera import Camera
 from flask_socketio import SocketIO
 
 # Camera IDs
-ID_CAMERA_THUMB = 1
-ID_CAMERA_FRUIT = 0
+ID_CAMERA_THUMB = 0
+ID_CAMERA_FRUIT = 1
 
 app = Flask(__name__)
 socketio = SocketIO(app, async_mode=None)
