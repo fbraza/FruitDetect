@@ -191,4 +191,4 @@ def ticket_printing():
 
 if __name__ == "__main__":
     print("[INFO] Starting severt at http://localhost:5001")
-    socketio.run(app=app, host="0.0.0.0", port=5001)
+    socketio.run(app=app, host="127.0.0.1", port=5001)
