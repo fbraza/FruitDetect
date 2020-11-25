@@ -2,7 +2,7 @@
 
 
 
-## Introduction
+## IIIIntroduction
 
 Most of the retails markets have self-service systems where the client can put the fruit but need to navigate through the system's interface to select and validate the fruits they want to buy. The good delivery of this process highly depends on human interactions and actually holds some trade-offs: heavy interface, difficulty to find the fruit we are looking for on the machine, human errors or intentional wrong labeling of the fruit and so on.
 
