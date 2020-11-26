@@ -80,6 +80,20 @@ The results yielded by the validation set were fairly good as mAP@50 was about 9
 
 *Figure 3: Loss function (A). Metrics on validation set (B). Representative detection of our fruits (C)*
 
+Below you can see a couple of short videos that illustrates how well our model works for fruit detection.
+
+- **All fruits**
+
+<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_1.gif" alt="Video_1" style="zoom:50%;" />
+
+- **Apples inside bag**
+
+<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_2.gif" alt="Video_2" style="zoom:50%;" />
+
+- **Bananas inside bag**
+
+<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_3.gif" alt="Video_3" style="zoom:50%;" />
+
 #### Thumb detection model training with Keras
 
 Pictures of thumb up (690 pictures), thumb down (791 pictures) and empty background pictures (347) on different positions and of different sizes have been taken with a webcam and used to train our model. Affine image transformations have been used for data augmentation (rotation, width shift, height shift). We use transfer learning with a **vgg16 neural network** imported with `imagenet` weights but without the top layers. We then add `flatten`, `dropout`, `dense`, `dropout` and `predictions` layers. The activation function of the last layer is a sigmoid function. The model has been ran in jupyter notebook on Google Colab with GPU using the free-tier account. The final architecture of our CNN neural network is described in the table below.
@@ -117,7 +131,15 @@ Monitoring **loss function** and **accuracy** (precision) on both training and v
 
 *Figure 4: Accuracy and loss function for CNN thumb classification model with Keras*
 
-It took around 30 *Epochs* for the training set to obtain a stable loss very closed to 0 and an very high accuracy closed to 1. Our test with camera demonstrated that our model was robust and working well (**video / gif**).
+It took around 30 *Epochs* for the training set to obtain a stable loss very closed to 0 and an very high accuracy closed to 1. Our test with camera demonstrated that our model was robust and working well.
+
+- **Thumb down detection**
+
+<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_4.gif" alt="Video_4" style="zoom:50%;" />
+
+- **Thumb up detection**
+
+<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_5.gif" alt="Video_5" style="zoom:50%;" />
 
 #### Server-side and client side application architecture
 
@@ -142,7 +164,7 @@ From these 3 scenarios we can have different possible outcomes:
 From a technical point of view the choice we have made to implement the application are the following:
 
 - a backend server that runs locally using Flask.
-- a frontend client with static HTML files updated by the Flask server and JavaScript modules that treat messages coming from the backend.
+- a frontend client with HTML files send by the Flask server and JavaScript modules that treat messages coming from the backend.
 
 In our situation the interaction between backend and frontend is bi-directional. First the backend reacts to client side interaction (e.g., press a button, fill a form). Second we also need to modify the behavior of the frontend depending on what is happening on the backend. In this regard we complemented the Flask server with the [Flask-socketio](<https://www.shanelynn.ie/asynchronous-updates-to-a-webpage-with-flask-and-socket-io/>) library to be able to send such messages from the server to the client. This is well illustrated in two cases: 
 
