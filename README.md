@@ -17,7 +17,7 @@ We will report here the fundamentals needed to build such detection system. Rega
 #### Dataset
 In this project we aim at the identification of 4 different fruits: tomatoes, bananas, apples and mangoes. From these we defined 4 different classes by fruits: *single fruit*, *group of fruit*, *fruit in bag*, *group of fruit in bag*. An additional class for an empty camera field has been added which puts the total number of classes to 17. A data set of 20 to 30 images per class has been generated using the same camera as for predictions. In total we got 338 images. Example images for each class are provided in Figure 1 below. 
 
-![Figure 1](https://github.com/fbraza/DSTI_Python_Labs/blob/master/assets/Figure_1.png)
+![Figure 1](https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Figure_1.png)
 
 *Figure 1: Representative pictures of our fruits without and with bags*
 
@@ -58,7 +58,7 @@ For fruit detection we used the YOLOv4 architecture whom backbone network is bas
 
 To evaluate the model we relied on two metrics: the **mean average precision** (mAP) and the **intersection over union** (IoU). The **average precision** (AP) is a way to get a fair idea of the model performance. It consists of computing the maximum precision we can get at different threshold of recall. Then we calculate the mean of these maximum precision. Now as we have more classes we need to get the AP for each class and then compute the mean again. This why this metric is named **mean average precision**. Object detection brings an additional complexity: what if the model detects the correct class but at the wrong location meaning that the bounding box is completely off. Surely this prediction should not be counted as positive. That is where the IoU comes handy and allows to determines whether the bounding box is located at the right location. Usually a threshold of 0.5 is set and results above are considered as good prediction. As such the corresponding mAP is noted **mAP@0.5**. The principle of the IoU is depicted in Figure 2.
 
-![](/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Figure_2.jpg)
+![](https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Figure_2.jpg)
 
 *Figure 2: Intersection over union principle*
 
@@ -76,7 +76,7 @@ We ran five different experiments and present below the result from the last one
 
 The results yielded by the validation set were fairly good as mAP@50 was about 98.72% with an average IoU of 90.47% (Figure 3B). We always tested our results by recording on camera the detection of our fruit to get a real feeling of the accuracy of our model as illustrated in Figure 3C.
 
-![Figure 3](https://github.com/fbraza/DSTI_Python_Labs/blob/master/assets/Figure_3.png)
+![Figure 3](https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Figure_3.png)
 
 *Figure 3: Loss function (A). Metrics on validation set (B). Representative detection of our fruits (C)*
 
@@ -113,7 +113,7 @@ Pictures of thumb up (690 pictures), thumb down (791 pictures) and empty backgro
 
 Monitoring **loss function** and **accuracy** (precision) on both training and validation sets has been performed to assess the efficacy of our model. We can see that the training was quite fast to obtain a robust model. As soon as the fifth *Epoch* we have a abrupt decrease of the value of the loss function for both training and validation sets which coincides with an abrupt increase of the accuracy (Figure 4).  
 
-![Figure 4](/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Figure_4.png)
+![Figure 4](https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Figure_4.png)
 
 *Figure 4: Accuracy and loss function for CNN thumb classification model with Keras*
 
@@ -123,7 +123,7 @@ It took around 30 *Epochs* for the training set to obtain a stable loss very clo
 
 The architecture and design of the app has been thought with the objective to appear autonomous and simple to use. it is supposed to lead  the user in the right direction with minimal interaction calls (Figure 4). The user needs to put the fruit under the camera, reads the proposition from the machine and validates or not the prediction by raising his thumb up or down respectively. 
 
-![workflow](https://github.com/fbraza/DSTI_Python_Labs/blob/master/assets/Figure_5.png)
+![workflow](https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Figure_5.png)
 
 *Figure 4: Application workflow*
 
