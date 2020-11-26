@@ -84,15 +84,15 @@ Below you can see a couple of short videos that illustrates how well our model w
 
 - **All fruits**
 
-<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_1.gif" alt="Video_1" style="zoom:50%;" />
+<img src="https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Video_1.gif" alt="Video_1" style="zoom:50%;" />
 
 - **Apples inside bag**
 
-<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_2.gif" alt="Video_2" style="zoom:50%;" />
+<img src="https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Video_2.gif" alt="Video_2" style="zoom:50%;" />
 
 - **Bananas inside bag**
 
-<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_3.gif" alt="Video_3" style="zoom:50%;" />
+<img src="https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Video_3.gif" alt="Video_3" style="zoom:50%;" />
 
 #### Thumb detection model training with Keras
 
@@ -135,11 +135,11 @@ It took around 30 *Epochs* for the training set to obtain a stable loss very clo
 
 - **Thumb down detection**
 
-<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_4.gif" alt="Video_4" style="zoom:50%;" />
+<img src="https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Video_4.gif" alt="Video_4" style="zoom:50%;" />
 
 - **Thumb up detection**
 
-<img src="/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Video_5.gif" alt="Video_5" style="zoom:50%;" />
+<img src="https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Video_5.gif" alt="Video_5" style="zoom:50%;" />
 
 #### Server-side and client side application architecture
 
