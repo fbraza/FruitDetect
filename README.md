@@ -17,7 +17,7 @@ We will report here the fundamentals needed to build such detection system. Rega
 #### Dataset
 In this project we aim at the identification of 4 different fruits: tomatoes, bananas, apples and mangoes. From these we defined 4 different classes by fruits: *single fruit*, *group of fruit*, *fruit in bag*, *group of fruit in bag*. An additional class for an empty camera field has been added which puts the total number of classes to 17. A data set of 20 to 30 images per class has been generated using the same camera as for predictions. In total we got 338 images. Example images for each class are provided in Figure 2 below. 
 
-![](/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Figure 3.png)
+![](https://github.com/fbraza/DSTI_Python_Labs/blob/master/assets/Figure%202.png)
 
 *Figure 2: Representative pictures of our fruits without and with bags*
 
@@ -76,7 +76,7 @@ We ran five different experiments and present below the result from the last one
 
 The results yielded by the validation set were fairly good as mAP@50 was about 98.72% with an average IoU of 90.47% (Figure 4B). We always tested our results by recording on camera the detection of our fruit to get a real feeling of the accuracy of our model as illustrated in Figure 4C.
 
-![](/home/fbraza/Insync/faouzi.brazza@gmail.com/Google Drive/02-DSTI-Master/04-Software-Engineering/03_Python_Lab/dl_fruit_detection/code/assets/Figure 4.png)
+![](https://github.com/fbraza/DSTI_Python_Labs/blob/master/assets/Figure%204.png)
 
 *Figure 4: Loss function (A). Metrics on validation set (B). Representative detection of our fruits (C)*
 
