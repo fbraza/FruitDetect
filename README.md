@@ -185,7 +185,7 @@ But **an AI model is a living object**.
 That's why an efficient platform should really propose an easy way to manage the application lifecycle.
 Some points are really critical and some specific processes have to be added:
 - Building and updating datasets
-- Retraining
+- Retraining and feedback loop
 - Evaluation
 
 **Building and updating datasets**
@@ -198,12 +198,12 @@ Even with less pictures, the 2nd way was far better.
 Therefore, it seems obvious that the best method is to work on a big quantity of pictures shot in the real context.
 
 It should not be a pain as we could benefit from an easily available solution: 
-**the perfect dataset could be build by customers themselves**.
+**the perfect dataset could be built by customers themselves**.
 In a first stage, the new system could only shot pictures of the fruits when the customers
 are selecting the relevant type of fruit on the traditional keyboard or screen.
 This is an easy and free way to retrieve both pictures and labels in a real context for dozens of fruits.
 
-**Retraining**
+**Retraining and feedback loop**
 
 The previous method of building a dataset is really a huge asset as :
 - it will also allow to add new kind of fruits
@@ -214,7 +214,7 @@ the system learns from the feedback of the customers
 Thanks to the platform, customers' manual entries in case of doubt or error can enrich the learning 
 of neural network by associating each fruit with the right label.
 It will allow to drastically increase the model accuracy.
-In the same way the initial dataset will be build, it will be extremely easy 
+In the same way the initial dataset will be built, it will be extremely easy 
 to reinforce the training by regularly using labelled datasets made by customers.
 
 **Monitoring and evaluation in production : "You can’t effectively manage what you don’t measure"**
@@ -226,11 +226,11 @@ accuracy, precision, recall.
 But a specific work has to be done with supermarket managers to build their own useful metrics.
 
 Those metrics could be available according different time periods: 
-daily, weekly, monthly …, allowing to to measure evolution.
+daily, weekly, monthly …, allowing to measure evolution.
 
 The speed of the process could be monitored too as the customers should not suffer from unusual wait.
 
-To build a deep confidence in the system is a goal which must not be neglicted.
+To build a deep confidence in the system is a goal which must not be neglected.
 
 ### To conclude
 
@@ -246,3 +246,4 @@ A further idea would be to improve the thumb recognition process by allowing all
 Voice control has already been used for a few years.
 Giving ears and eyes to machines definitely makes them closer to human behaviour. 
 The main question remains: will we be partners or competitors …?
+
