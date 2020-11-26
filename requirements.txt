@@ -25,8 +25,8 @@ Keras-Preprocessing==1.1.2
 kiwisolver==1.2.0
 Markdown==3.3.3
 MarkupSafe==1.1.1
-matplotlib==3.3.1
 numpy==1.18.5
+matplotlib==3.3.1
 oauthlib==3.1.0
 opencv-contrib-python==4.4.0.42
 opencv-python==4.4.0.42
