@@ -158,3 +158,91 @@ In our situation the interaction between backend and frontend is bi-directional.
   ```
 
 ## Discussion and perspectives
+
+### Toward production
+
+We are confident in achieving a professional product.
+
+An example of using this kind of system exists in the catering sector with Compass Group company since 2019.
+It is applied to dishes recognition on a tray.
+Thousands of different products can be detected, and the bill is automatically output.
+Wait to pay has been divided by 3 and 92% of customers prefer the new system.
+
+Our system goes further by adding validation by camera after the detection step.
+
+By looking deeper at this successful story, we can also learn that 
+the key point to convince supermarkets to adopt the system 
+is to be able to propose a whole platform not only a detection/validation model.
+
+Indeed, like every software, an AI application requires us to consider lot of subjects to go into production:
+- Deployment
+- Documentation
+- Versioning management
+- Tracking and Monitoring (logs, metric)
+- Maintenance (availability)
+
+But **an AI model is a living object**.
+That's why an efficient platform should really propose an easy way to manage the application lifecycle.
+Some points are really critical and some specific processes have to be added:
+- Building and updating datasets
+- Retraining
+- Evaluation
+
+**Building and updating datasets**
+
+Thanks to the POC, we have been able to see the huge output difference regarding the dataset quality:
+- in a 1st dataset, the images where shot in various conditions
+- in a 2nd dataset, the images were shot like in the real context.
+
+Even with less pictures, the 2nd way was far better.
+Therefore, it seems obvious that the best method is to work on a big quantity of pictures shot in the real context.
+
+It should not be a pain as we could benefit from an easily available solution: 
+**the perfect dataset could be build by customers themselves**.
+In a first stage, the new system could only shot pictures of the fruits when the customers
+are selecting the relevant type of fruit on the traditional keyboard or screen.
+This is an easy and free way to retrieve both pictures and labels in a real context for dozens of fruits.
+
+**Retraining**
+
+The previous method of building a dataset is really a huge asset as :
+- it will also allow to add new kind of fruits
+- it will even provide improvement facilities.
+To ensure the management of the new fruits and the improvement of the performances, 
+the system learns from the feedback of the customers
+(true predictions but also false predictions corrected by customers).
+Thanks to the platform, customers' manual entries in case of doubt or error can enrich the learning 
+of neural network by associating each fruit with the right label.
+It will allow to drastically increase the model accuracy.
+In the same way the initial dataset will be build, it will be extremely easy 
+to reinforce the training by regularly using labelled datasets made by customers.
+
+**Monitoring and evaluation in production : "You can’t effectively manage what you don’t measure"**
+
+The system has to be manageable. Therefore, some tools must be developed to allow monitoring 
+and reporting.
+Based on the number of true predictions and false predictions, the usual ratios could be proposed:
+accuracy, precision, recall.
+But a specific work has to be done with supermarket managers to build their own useful metrics.
+
+Those metrics could be available according different time periods: 
+daily, weekly, monthly …, allowing to to measure evolution.
+
+The speed of the process could be monitored too as the customers should not suffer from unusual wait.
+
+To build a deep confidence in the system is a goal which must not be neglicted.
+
+### To conclude
+
+Automatic object detection and validation by camera rather than manual interaction 
+are certainly future success technologies.
+
+Of course, the autonomous car is the current most impressive object detection project. 
+But a lot of simpler applications in the everyday life could be imagined, 
+especially in the field of validation by camera.
+The cost of cameras has become dramatically low, allowing considering this tool like a new powerful human machine interface.
+A further idea would be to improve the thumb recognition process by allowing all fingers’ detection, making possible to count or a more advanced communication.
+
+Voice control has already been used for a few years.
+Giving ears and eyes to machines definitely makes them closer to human behaviour. 
+The main question remains: will we be partners or competitors …?
