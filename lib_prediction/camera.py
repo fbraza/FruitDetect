@@ -114,26 +114,36 @@ class Camera:
         global thread
         if len(self.frames) > 0:
             frame = self.frames
+            # get the prediction from class ClassifPredictionModel
             pred_class_idx, pred_proba_value, text = (
                 classif_thumb
                 .predict_and_identify(
                     frame, 0.5)
             )
             frame = cv2.flip(frame, 1)
+            # store the prediction on a list that will be evaluated 
+            # at the end of the prediction process
             self._predictions.append(pred_class_idx)
+            # add the result of the prediction to the image
+            # displayed on the webpage
             cv2.putText(frame,
                         text,
-                        (35, 50),
+                        (35, 40),
                         cv2.FONT_HERSHEY_SIMPLEX,
-                        1.25,
+                        1,
                         (0, 0, 255),
                         5)
             img = cv2.imencode('.png', frame)[1].tobytes()
+            # if number of analysed images is reached, send result to frontend
             if len(self._predictions) > self.nb_predicted_images:
                 self.stop()
                 thread, self.frames = None, []
+                # count the number of up thumb and down thumb
                 up_count = np.sum(np.array(self._predictions) == 0)
                 down_count = np.sum(np.array(self._predictions) == 1)
+                # check that prediction has been done on more then 10% of images
+                # if yes, send the prediction 0 for thumb up, 1 for thumb down
+                # if no, send the code 2 for no prediction
                 total = (self.nb_predicted_images / 10)
                 if (up_count >= down_count) and (up_count > total):
                     self.socketio.emit('newnumber',
@@ -181,7 +191,6 @@ class Camera:
             # encode the image in a .png file
             img = cv2.imencode('.png', img2)[1].tobytes()
             # if number of analysed images is reached, send result to frontend
-            # if False:
             if len(self._predictions) > self.nb_predicted_images:
                 # stop camera
                 self.stop()

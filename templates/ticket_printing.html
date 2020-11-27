@@ -5,17 +5,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="5;url=/" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <script src="/static/js/jquery-3.5.1.min.js"></script>
+  <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <style>
-  .fakeimg {
+  .content {
     height: 200px;
-    background: #aaa;
+    background: #2d7121;
   }
   </style>
 </head>
 <body>
+ 
+<div id="header"></div> 
 
 <div class="jumbotron text-center" style="margin-bottom:0">
   <h1>QuelFruit</h1>
@@ -34,21 +36,21 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">QuelFruit</a>
+      <a class="navbar-brand" href="/quel_fruit">QuelFruit</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#">About</a></li>
-		<li class="active"><a href="#">Try It</a></li>
-      	<li><a href="#">Under the Hood</a></li>
-        <li><a href="#">Authors</a></li>
+		<li class="active"><a href="/">Try It</a></li>
+      	<li><a href="/under_the_hood">Under the Hood</a></li>
+        <li><a href="/authors">Authors</a></li>
+        <li><a href="/thanks">Thanks</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
 <div class="jumbotron text-center">
-  <h1>Please wait, we are printing your ticket for the {{predict}}</h1>
+  <h1>Please wait while we print the ticket for your <b>{{predict}}</b></h1>
   <h2> Back to start page in 5 seconds ... </h2>
   <p>
 </div>
