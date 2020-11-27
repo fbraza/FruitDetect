@@ -84,7 +84,7 @@ Below you can see a couple of short videos that illustrates how well our model w
 
 - **All fruits**
 
-<img src="https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Video_1.gif" alt="Video_1" style="zoom:50%;" />
+![Video_1](https://github.com/fbraza/DSTI_Python_Labs/blob/master/assets/Video_1.gif)
 
 - **Apples inside bag**
 
@@ -220,7 +220,7 @@ You can then access the application in your browser at the following address: ht
 
 Here an overview video to present the application workflow.
 
-<img src="https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Video_6.gif" alt="Video_5" style="zoom:50%;" />
+![Video_6](https://github.com/fbraza/DSTI_Python_Labs/blob/master/assets/Video_6.gif)
 
 
 
