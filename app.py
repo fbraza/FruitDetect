@@ -6,10 +6,14 @@ from flask_socketio import SocketIO
 ID_CAMERA_THUMB = 0
 ID_CAMERA_FRUIT = 1
 
+# Number of Frames for Prediction
+NB_FRAMES_THUMB_PREDICTION = 30
+NB_FRAMES_FRUIT_PREDICTION = 40
+
 app = Flask(__name__)
 socketio = SocketIO(app, async_mode=None)
-camera_thumb = Camera(socketio, video_source=ID_CAMERA_THUMB)
-camera_fruit = Camera(socketio, video_source=ID_CAMERA_FRUIT)
+camera_thumb = Camera(socketio, video_source=ID_CAMERA_THUMB,nb_predicted_images=NB_FRAMES_THUMB_PREDICTION)
+camera_fruit = Camera(socketio, video_source=ID_CAMERA_FRUIT,nb_predicted_images=NB_FRAMES_FRUIT_PREDICTION)
 fruit_prediction = None
 
 
@@ -188,6 +192,49 @@ def ticket_printing():
     global fruit_prediction
     return render_template('ticket_printing.html', predict=fruit_prediction)
 
+@app.route('/under_the_hood/')
+def under_the_hood():
+    """
+    This function render the web page under_the_hood
+
+    Returns:
+    --------
+    - GET: return the template under_the_hood.html.
+    """
+    return render_template('under_the_hood.html')
+
+@app.route('/authors/')
+def authors():
+    """
+    This function render the web page authors
+
+    Returns:
+    --------
+    - GET: return the template authors.html.
+    """
+    return render_template('authors.html')
+
+@app.route('/thanks/')
+def thanks():
+    """
+    This function render the web page thanks
+
+    Returns:
+    --------
+    - GET: return the template thanks.html.
+    """
+    return render_template('thanks.html')
+
+@app.route('/quel_fruit/')
+def quel_fruit():
+    """
+    This function render the web page quel_fruit
+
+    Returns:
+    --------
+    - GET: return the template quel_fruit.html.
+    """
+    return render_template('quel_fruit.html')
 
 if __name__ == "__main__":
     print("[INFO] Starting severt at http://localhost:5001")
