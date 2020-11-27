@@ -220,6 +220,8 @@ You can then access the application in your browser at the following address: ht
 
 Here an overview video to present the application workflow.
 
+<img src="https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Video_6.gif" alt="Video_5" style="zoom:50%;" />
+
 
 
 ## Discussion and perspectives
