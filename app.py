@@ -12,8 +12,10 @@ NB_FRAMES_FRUIT_PREDICTION = 40
 
 app = Flask(__name__)
 socketio = SocketIO(app, async_mode=None)
-camera_thumb = Camera(socketio, video_source=ID_CAMERA_THUMB,nb_predicted_images=NB_FRAMES_THUMB_PREDICTION)
-camera_fruit = Camera(socketio, video_source=ID_CAMERA_FRUIT,nb_predicted_images=NB_FRAMES_FRUIT_PREDICTION)
+camera_thumb = Camera(socketio, video_source=ID_CAMERA_THUMB,
+                      nb_predicted_images=NB_FRAMES_THUMB_PREDICTION)
+camera_fruit = Camera(socketio, video_source=ID_CAMERA_FRUIT,
+                      nb_predicted_images=NB_FRAMES_FRUIT_PREDICTION)
 fruit_prediction = None
 
 
@@ -192,6 +194,7 @@ def ticket_printing():
     global fruit_prediction
     return render_template('ticket_printing.html', predict=fruit_prediction)
 
+
 @app.route('/under_the_hood/')
 def under_the_hood():
     """
@@ -202,6 +205,7 @@ def under_the_hood():
     - GET: return the template under_the_hood.html.
     """
     return render_template('under_the_hood.html')
+
 
 @app.route('/authors/')
 def authors():
@@ -214,6 +218,7 @@ def authors():
     """
     return render_template('authors.html')
 
+
 @app.route('/thanks/')
 def thanks():
     """
@@ -225,6 +230,7 @@ def thanks():
     """
     return render_template('thanks.html')
 
+
 @app.route('/quel_fruit/')
 def quel_fruit():
     """
@@ -235,6 +241,7 @@ def quel_fruit():
     - GET: return the template quel_fruit.html.
     """
     return render_template('quel_fruit.html')
+
 
 if __name__ == "__main__":
     print("[INFO] Starting severt at http://localhost:5001")
