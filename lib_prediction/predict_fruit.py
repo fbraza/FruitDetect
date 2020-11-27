@@ -2,11 +2,6 @@ import cv2
 import numpy as np
 
 
-PATH_CONFIG = "yolo_config/yolov4-custom-dsti.cfg"
-PATH_WEIGHTS = "yolo_config/weights/yolov4-custom-dsti_final.weights"
-PATH_CLASSES = "yolo_config/obj.names"
-
-
 class YoloPredictionModel:
     def __init__(self, path_config, path_weigths, path_classes):
         """
@@ -185,25 +180,3 @@ class YoloPredictionModel:
 
 def generate_blob(image, scale=1/255, size=(416, 416), mean=0, crop=False):
     return cv2.dnn.blobFromImage(image, scale, size, mean, crop)
-
-
-if __name__ == "__main__":
-    yolo = YoloPredictionModel(PATH_CONFIG,
-                               PATH_WEIGHTS,
-                               PATH_CLASSES).set_backend_and_device()
-    # instantiate video capture object
-    capture = cv2.VideoCapture(0)
-    while True:
-        # capture frames
-        success, frame = capture.read()
-        # tranform frames into blobs
-        blob_input = generate_blob(frame)
-        # blobs as yolo inputs
-        yolo.ingest_input(blob_input)
-        # Get output obects
-        yolo.get_output_layers_names()
-        output = yolo._forward()
-        # Predictions
-        yolo.predict_and_identify(frame, output)
-        cv2.imshow("test", frame)
-        cv2.waitKey(1)
