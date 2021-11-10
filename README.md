@@ -187,7 +187,8 @@ In our situation the interaction between backend and frontend is bi-directional.
 
 #### Usage 
 
-To use the application. Clone or download the repository in your computer. Check that `python 3.7` or above is installed in your computer. Download the weights [here](https://drive.google.com/file/d/1oxkA6hP24AuDrQCSPTprlKsDxRXWiFiW/view?usp=sharing) (They will be hosted into a different platform soon). Unzip the archive and put the `config` folder at the root of your repository. The structure of your folder should look like the one below:
+To use the application. Clone or 
+the repository in your computer. Check that `python 3.7` or above is installed in your computer. Download the weights [here](https://drive.google.com/file/d/1mBuSfh_JizAl6VyP9BtsRXqWX8KrRePo/view?usp=sharing) (They will be hosted into a different platform soon). Unzip the archive and put the `config` folder at the root of your repository. The structure of your folder should look like the one below:
 
 ```bash
 .
