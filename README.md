@@ -1,7 +1,5 @@
 # Fruit detection using deep learning and human-machine interaction
 
-
-
 ## Introduction
 
 Most of the retails markets have self-service systems where the client can put the fruit but need to navigate through the system's interface to select and validate the fruits they want to buy. The good delivery of this process highly depends on human interactions and actually holds some trade-offs: heavy interface, difficulty to find the fruit we are looking for on the machine, human errors or intentional wrong labeling of the fruit and so on.
@@ -10,11 +8,10 @@ Herein the purpose of our work is to propose an alternative approach to identify
 
 We will report here the fundamentals needed to build such detection system. Regarding hardware, the fundamentals are two cameras and a computer to run the system . A fruit detection model has been trained and evaluated using the fourth version of the You Only Look Once (YOLOv4) object detection architecture. The human validation step has been established using a convolutional neural network (CNN) for classification of thumb-up and thumb-down. The model has been written using Keras, a high-level framework for Tensor Flow.  For both deep learning systems the predictions are ran on an backend server while a front-end user interface will output the detection results and presents the user interface to let the client validate the predictions.
 
-
-
 ## Methodology & Results
 
 #### Dataset
+
 In this project we aim at the identification of 4 different fruits: tomatoes, bananas, apples and mangoes. From these we defined 4 different classes by fruits: *single fruit*, *group of fruit*, *fruit in bag*, *group of fruit in bag*. An additional class for an empty camera field has been added which puts the total number of classes to 17. A dataset of 20 to 30 images per class has been generated using the same camera as for predictions. In total we got 338 images. Example images for each class are provided in Figure 1 below. 
 
 ![Figure 1](https://github.com/fbraza/DSTI_Python_Labs/blob/readme/assets/Figure_1.png)
@@ -28,17 +25,19 @@ The Computer Vision and Annotation Tool ([CVAT](https://github.com/openvinotoolk
 
 Class Index     x          y          width      height
 ---------------------------------------------------------
-13   			0.438271   0.523156   0.179000   0.191354
-13   			0.581010   0.358792   0.183646   0.205250
-13   			0.688271   0.516125   0.203708   0.193042
-9    			0.568677   0.433490   0.449063   0.356479
+13               0.438271   0.523156   0.179000   0.191354
+13               0.581010   0.358792   0.183646   0.205250
+13               0.688271   0.516125   0.203708   0.193042
+9                0.568677   0.433490   0.449063   0.356479
 
 # x and y are the coordinates of the center point of the bounding box
 # Values are normalized regarding size of the image
 ```
 
 #### Data augmentation
+
 We used traditional transformations that combined affine image transformations and color modifications. These transformations have been performed using the [Albumentations](https://github.com/albumentations-team/albumentations) python library. This library leverages `numpy`, `opencv` and `imgaug` python libraries through an easy to use API. The sequence of transformations can be seen below in the code snippet.
+
 ```python
 A.Compose(
     [A.Resize(416, 416),
@@ -51,9 +50,11 @@ A.Compose(
      A.BboxParams('yolo', ['class_labels'])
     )
 ```
+
 Each image went through 150 distinct rounds of transformations which brings the total number of images to 50700. Our images have been spitted into training and validation sets at a 9|1 ratio. The full code can be seen [here](https://github.com/fbraza/DSTI_Python_Labs/blob/master/lib_data_augmentation/data_augmentation.py) for data augmentation and [here](https://github.com/fbraza/DSTI_Python_Labs/blob/master/lib_data_augmentation/split_train_test.py) for the creation of training & validation sets.
 
 #### Fruit detection model training with YOLOv4
+
 For fruit detection we used the YOLOv4 architecture whom backbone network is based on the CSPDarknet53 ResNet. YOLO is a one-stage detector meaning that predictions for object localization and classification are done at the same time. Additionally and through its previous iterations the model significantly improves by adding Batch-norm, higher resolution, anchor boxes, objectness score to bounding box prediction and a detection in three granular step to improve the detection of smaller objects. From the user perspective YOLO proved to be very easy to use and setup. Indeed because of the time restriction when using the Google Colab free tier we decided to install locally all necessary drivers (NVIDIA, CUDA) and compile locally the [Darknet architecture](https://github.com/AlexeyAB/darknet). This has been done on a Linux computer running Ubuntu 20.04, with 32GB of RAM, NVIDIA GeForce GTX1060 graphic card with 6GB memory and an Intel i7 processor.
 
 To evaluate the model we relied on two metrics: the **mean average precision** (mAP) and the **intersection over union** (IoU). The **average precision** (AP) is a way to get a fair idea of the model performance. It consists of computing the maximum precision we can get at different threshold of recall. Then we calculate the mean of these maximum precision. Now as we have more classes we need to get the AP for each class and then compute the mean again. This is why this metric is named **mean average precision**. Object detection brings an additional complexity: what if the model detects the correct class but at the wrong location meaning that the bounding box is completely off. Surely this prediction should not be counted as positive. That is where the IoU comes handy and allows to determines whether the bounding box is located at the right location. Usually a threshold of 0.5 is set and results above are considered as good prediction. As such the corresponding mAP is noted **mAP@0.5**. The principle of the IoU is depicted in Figure 2.
@@ -171,7 +172,7 @@ In our situation the interaction between backend and frontend is bi-directional.
 - The approach used to handle the image streams generated by the camera where the backend deals directly with image frames and send them subsequently to the client side. This approach circumvents any web browser compatibility issues as `png` images are sent to the browser. Treatment of the image stream has been done using the `OpenCV` library and the whole logic has been encapsulated into a python class `Camera`. The full code can be read [here](https://github.com/fbraza/DSTI_Python_Labs/blob/master/lib_prediction/camera.py).
 
 - The approach used to treat fruits and thumb detection then send the results to the client where models and predictions are respectively loaded and analyzed on the backend then results are directly send as messages to the frontend. Based on the message the client needs to display different pages. An example of the code can be read below for result of the thumb detection. The full code can be read [here](https://github.com/fbraza/DSTI_Python_Labs/blob/master/static/js/application.js).
-
+  
   ```javascript
     // receive details from server
       socket.on('newnumber', function(msg) {
@@ -185,10 +186,10 @@ In our situation the interaction between backend and frontend is bi-directional.
               }, 4000);
   ```
 
-#### Usage 
+#### Usage
 
 To use the application. Clone or 
-the repository in your computer. Check that `python 3.7` or above is installed in your computer. Download the weights [here](https://drive.google.com/file/d/1mBuSfh_JizAl6VyP9BtsRXqWX8KrRePo/view?usp=sharing) (They will be hosted into a different platform soon). Unzip the archive and put the `config` folder at the root of your repository. The structure of your folder should look like the one below:
+the repository in your computer. Check that `python 3.7` or above is installed in your computer. Weights are present in the repository in the `assets/` directory. Unzip the archive and put the `config` folder at the root of your repository. The structure of your folder should look like the one below:
 
 ```bash
 .
@@ -222,8 +223,6 @@ You can then access the application in your browser at the following address: ht
 Here an overview video to present the application workflow.
 
 ![Video_6](https://github.com/fbraza/DSTI_Python_Labs/blob/master/assets/Video_6.gif)
-
-
 
 ## Discussion and perspectives
 
